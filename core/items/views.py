@@ -71,6 +71,7 @@ class ItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
             if serializer.is_valid():
                 updated_item = serializer.save()
+                cache.set(f'item_{item_id}', serializer.data, timeout=3600*2)
                 logger.info(f'Updated Item with id: {item_id}')
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
