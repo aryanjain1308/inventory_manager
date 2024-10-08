@@ -31,7 +31,7 @@ class ItemListCreateView(generics.ListCreateAPIView):
             logger.info(f'Item created: {item}')
             return Response(serializer.data, status.HTTP_201_CREATED)
         else:
-            logger.error('Error creating item: {serializer.errors}')
+            logger.error(f'Error creating item: {serializer.errors}')
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
