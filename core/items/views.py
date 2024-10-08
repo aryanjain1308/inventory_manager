@@ -51,7 +51,7 @@ class ItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
             return Response(cached_item)
 
         try:
-            item = self.queryset.filter(pk=item_id).first()
+            item = self.queryset.get(pk=item_id)
             serializer = self.serializer_class(item)
             logger.info(f'Fetched item with id: {item_id}')
 
@@ -66,7 +66,7 @@ class ItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         item_id = self.kwargs['item_id']
         try:
-            item = self.queryset.filter(pk=item_id).first()
+            item = self.queryset.get(pk=item_id)
             serializer = self.serializer_class(item, data=request.data)
 
             if serializer.is_valid():
